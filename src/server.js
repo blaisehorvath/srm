@@ -29,7 +29,7 @@ import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
-import { setInitialPath } from './actions/initialpath';
+import { setPath } from './actions/initialpath';
 import { port, auth } from './config';
 
 const app = express();
@@ -123,7 +123,7 @@ app.get('*', async (req, res, next) => {
       query: req.query,
     });
 
-    store.dispatch(setInitialPath({
+    store.dispatch(setPath({
       name: 'path',
       value: req.path || '/',
     }));

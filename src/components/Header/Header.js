@@ -10,15 +10,20 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
+import AppBar from 'material-ui/AppBar'
+import HeaderButtons from './HeaderButtons'
+
+const appbarOptions = {
+  iconElementLeft: <HeaderButtons/>,
+  style: {
+    color: 'blue'
+  }
+}
 
 class Header extends React.Component {
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>HEADER</h1>
-        </div>
-      </div>
+      <AppBar {...appbarOptions}  />
     );
   }
 }

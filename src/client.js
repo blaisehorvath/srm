@@ -18,6 +18,7 @@ import App from './components/App';
 import configureStore from './store/configureStore';
 import { updateMeta } from './core/DOMUtils';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
+import { setPath } from './actions/initialpath';
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
@@ -94,6 +95,10 @@ let routes = require('./routes').default;
 
 // Re-render the app when window.location changes
 async function onLocationChange(location, action) {
+
+  // informing the store about the universal-router's state
+  context.store.dispatch(setPath({ name: 'path', value : location.pathname }));
+
   // Remember the latest scroll position for the previous location
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,

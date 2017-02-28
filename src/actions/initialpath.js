@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 
-import { SET_INITIAL_PATH } from '../constants';
+import { SET_PATH } from '../constants';
 
-export function setInitialPath({name, value}) {
+export function setPath({name, value}) {
   return {
-    type: SET_INITIAL_PATH,
+    type: SET_PATH,
     payload: {
       name,
       value,
