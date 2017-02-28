@@ -1,5 +1,6 @@
 ---
-title: Privacy Policy
+title: Team
+component: ContentPage
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat
 tortor fermentum mi fermentum dignissim. Nullam vel ipsum ut ligula elementum

@@ -16,13 +16,10 @@ export default {
 
   // Keep in mind, routes are evaluated in order
   children: [
-    require('./home').default,
-    require('./contact').default,
-    require('./login').default,
-    require('./register').default,
     require('./about').default,
-    require('./privacy').default,
-    require('./admin').default,
+    require('./contact').default,
+    require('./projects').default,
+    require('./team').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,

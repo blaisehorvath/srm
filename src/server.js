@@ -89,6 +89,13 @@ app.use('/graphql', expressGraphQL(req => ({
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
+
+  //Blaise: I didn't find a better way to do this on FE
+  if(req.path === '/') {
+    res.redirect('/about');
+    return
+  }
+
   try {
     const store = configureStore({
       user: req.user || null,
