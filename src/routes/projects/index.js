@@ -9,7 +9,8 @@
 
 import React from 'react';
 import Layout from '../../components/Layout';
-import Page from '../../components/Page';
+import ProjectView from './projectView';
+
 
 export default {
 
@@ -21,7 +22,7 @@ export default {
     return {
       title: data.title,
       chunk: 'projects',
-      component: <Layout><Page {...data} /></Layout>,
+      component: <Layout><ProjectView {...data} /></Layout>,
     };
   },
 

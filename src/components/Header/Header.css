@@ -7,3 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+.headerTabs {
+  width: 500px;
+}
+
+.headerTab {
+  font-family: 'Fira Sans', serif !important;
+}
+

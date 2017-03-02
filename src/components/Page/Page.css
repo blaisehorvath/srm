@@ -1,13 +1,4 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
-@import '../variables.css';
+@import '../../constants/constants.scss';
 
 .root {
   padding-left: 20px;
@@ -17,5 +8,46 @@
 .container {
   margin: 0 auto;
   padding: 0 0 40px;
-  max-width: var(--max-content-width);
+  max-width: $max-content-width;
+}
+
+p {
+  font-family: 'Fira Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16pt;
+  font-weight: 200;
+}
+
+div.cardText {
+  font-family: 'Fira Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16pt !important;
+  font-weight: 200;
+}
+
+@media (max-width: $screen-xs-min) {
+  div.cardText {
+    font-size: 10pt !important;
+  }
+}
+
+.cardAvatar {
+  img {
+    border-radius: 0 !important;
+    background-color: white !important;
+  }
+}
+
+.cardContent {
+  p {
+    font-size: 13pt;
+  }
+
+  h2 {
+    font-size: 15pt;
+  }
 }
