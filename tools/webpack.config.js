@@ -10,7 +10,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 import pkg from '../package.json';
 
 const isDebug = !process.argv.includes('--release');
@@ -89,6 +89,34 @@ const config = {
             ...isDebug ? ['transform-react-jsx-self'] : [],
           ],
         },
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'isomorphic-style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              // CSS Loader https://github.com/webpack/css-loader
+              importLoaders: 1,
+              sourceMap: isDebug,
+              // CSS Modules https://github.com/css-modules/css-modules
+              modules: true,
+              localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+              // CSS Nano http://cssnano.co/options/
+              minimize: !isDebug,
+              discardComments: {removeAll: true},
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: './tools/postcss.config.js',
+            },
+          },
+        ],
       },
       {
         test: /\.css/,
@@ -186,7 +214,7 @@ const clientConfig = {
     chunkFilename: isDebug ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
   },
 
-  resolve: { ...config.resolve },
+  resolve: {...config.resolve},
 
   plugins: [
     // Define free variables
@@ -213,25 +241,25 @@ const clientConfig = {
     }),
 
     ...isDebug ? [] : [
-      // Minimize all JavaScript output of chunks
-      // https://github.com/mishoo/UglifyJS2#compressor-options
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-        compress: {
-          screw_ie8: true, // React doesn't support IE8
-          warnings: isVerbose,
-          unused: true,
-          dead_code: true,
-        },
-        mangle: {
-          screw_ie8: true,
-        },
-        output: {
-          comments: false,
-          screw_ie8: true,
-        },
-      }),
-    ],
+        // Minimize all JavaScript output of chunks
+        // https://github.com/mishoo/UglifyJS2#compressor-options
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true,
+          compress: {
+            screw_ie8: true, // React doesn't support IE8
+            warnings: isVerbose,
+            unused: true,
+            dead_code: true,
+          },
+          mangle: {
+            screw_ie8: true,
+          },
+          output: {
+            comments: false,
+            screw_ie8: true,
+          },
+        }),
+      ],
 
     new BundleAnalyzerPlugin({
       // See above
@@ -299,29 +327,28 @@ const serverConfig = {
 
     // Override babel-preset-env configuration for Node.js
     rules: config.module.rules.map(rule => (rule.loader !== 'babel-loader' ? rule : {
-      ...rule,
-      query: {
-        ...rule.query,
-        presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
-          targets: {
-            node: parseFloat(pkg.engines.node.replace(/^\D+/g, '')),
-          },
-          modules: false,
-          useBuiltIns: false,
-          debug: false,
-        }])),
-      },
-    })),
+        ...rule,
+        query: {
+          ...rule.query,
+          presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
+              targets: {
+                node: parseFloat(pkg.engines.node.replace(/^\D+/g, '')),
+              },
+              modules: false,
+              useBuiltIns: false,
+              debug: false,
+            }])),
+        },
+      })),
   },
 
-  resolve: { ...config.resolve },
+  resolve: {...config.resolve},
 
   externals: [
     /^\.\/assets\.json$/,
     (context, request, callback) => {
       const isExternal =
-        request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
-        !request.match(/\.(css|less|scss|sss)$/i);
+        request.match(/^[@a-z][a-z/.\-0-9]*$/i) && !request.match(/\.(css|less|scss|sss)$/i);
       callback(null, Boolean(isExternal));
     },
   ],
@@ -337,7 +364,7 @@ const serverConfig = {
 
     // Do not create separate chunks of the server bundle
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
 
     // Adds a banner to the top of each generated chunk
     // https://webpack.github.io/docs/list-of-plugins.html#bannerplugin
